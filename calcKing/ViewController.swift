@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Expression
 
 class ViewController: UIViewController {
     @IBOutlet weak var formulaLabel: UILabel!
@@ -45,7 +46,20 @@ class ViewController: UIViewController {
         guard let formulaText = formulaLabel.text else {
             return
         }
-        answerLabel.text = formulaText
+        answerLabel.text = evalInput(formulaText)
+    }
+    
+    private func evalInput(_ formula: String) -> String {
+        do {
+            // Expressionで文字列の計算式を評価して答えを求める
+            let expression = Expression(formula)
+            let answer = try expression.evaluate()
+            print(String(answer))
+            return String(answer)
+        } catch {
+            // 計算式が不当だった場合
+            return "式を正しく入力してください"
+        }
     }
 }
 

@@ -1,0 +1,6 @@
+framework module Pods_calcKingUITests {
+  umbrella header "Pods-calcKingUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
