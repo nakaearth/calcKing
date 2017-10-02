@@ -18,6 +18,29 @@ class ViewController: UIViewController {
         // ビューがロードされた時点で式と答えのラベルは空
         formulaLabel.text = ""
         answerLabel.text  = ""
+        
+        // TODO: サーバにrequest投げてjsonでテストデータを受け取る
+        let url:NSURL = NSURL(string:"http://localhost:5000/shared_albums/Mw==")!
+        //リクエストを生成
+        let request:NSURLRequest = NSURLRequest(url: url as URL)
+        
+        // 送信処理を始める.
+        var data: NSData?
+        do {
+            let res: AutoreleasingUnsafeMutablePointer<URLResponse?>? = nil
+            data = try NSURLConnection.sendSynchronousRequest(request as URLRequest, returning: res) as NSData
+            
+        } catch {
+            print(error)
+        }
+        
+        if let _data = data {
+            // 帰ってきたデータを文字列に変換.
+            let getData: NSString = NSString(data:_data as Data, encoding: String.Encoding.utf8.rawValue)!
+            
+            //デバッグ文に表示
+            print(getData as String)
+        }
     }
 
     override func didReceiveMemoryWarning() {
